@@ -1,3 +1,7 @@
+// MIT License
+// Copyright (c) 2025 Prawin-736
+// See LICENSE file for more information
+
 import express from 'express';
 import { userRouter } from './src/features/user/user-router.js';
 import { mainRouter } from './src/features/main/main-router.js';
