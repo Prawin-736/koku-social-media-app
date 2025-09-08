@@ -74,7 +74,7 @@ Follow these steps to run the project locally.
 ### 🔧 Installation
 ```bash
 1. **Clone the repository**
-   https://github.com/Prawin-736/koku-social-media-app-.git
+   git clone https://github.com/Prawin-736/koku-social-media-app-.git
 
 2. **Install backend dependencies**
 cd server
