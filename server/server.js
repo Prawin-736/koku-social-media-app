@@ -7,7 +7,7 @@ import { userRouter } from './src/features/user/user-router.js';
 import { mainRouter } from './src/features/main/main-router.js';
 import path, { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { mongooseConnect } from './config.js';
+import { mongooseConnect } from './mongodb.config.js';
 import cookieParser from 'cookie-parser';
 import { checkS3Connection } from './aws/checkS3Connection.js';
 import { postRouter } from './src/features/post/post-router.js';

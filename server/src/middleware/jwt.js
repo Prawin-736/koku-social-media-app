@@ -1,5 +1,4 @@
-import dotenv from 'dotenv';
-dotenv.config();
+import { config } from '../../config.js';
 import jwt from 'jsonwebtoken';
 import UserRepository from '../features/user/user-repository.js';
 
@@ -13,7 +12,7 @@ export const jwtAuth = async (req, res, next) => {
   }
 
   try {
-    const payload = jwt.verify(token, process.env.JWT_SECRETKEY);
+    const payload = jwt.verify(token,config.jwt.secretKey);
     req.userId = payload.userId;
     req.email = payload.email;
     req.userName = payload.userName;
@@ -41,7 +40,7 @@ export const jwtOtpAuth = (req, res, next) => {
   }
 
   try {
-    const payload = jwt.verify(token, process.env.JWT_OTP_SECRETKEY);
+    const payload = jwt.verify(token,config.jwt.otpSecretKey);
     req.userId = payload.userId;
     req.email = payload.email;
     req.userName = payload.userName;
@@ -62,7 +61,7 @@ export const jwtNewPassAuth = (req, res, next) => {
     return res.redirect('/api/user/newPassword');
   }
   try {
-    const payload = jwt.verify(token, process.env.JWT_NEW_PASS_SECRETKEY);
+    const payload = jwt.verify(token,config.jwt.newPassSecretKey);
     req.userId = payload.userId;
     req.email = payload.email;
     req.userName = payload.userName;

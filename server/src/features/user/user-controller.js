@@ -1,5 +1,4 @@
-import dotenv from 'dotenv';
-dotenv.config();
+import { config } from '../../../config.js';
 import bcrypt from 'bcrypt';
 import UserRepository from './user-repository.js';
 import ErrorHandler from '../../middleware/error-handler.js';
@@ -88,14 +87,14 @@ async findUser(req, res, next) {
         let transporter = nodemailer.createTransport({
           service: 'gmail',
           auth: {
-            user: process.env.NODEMAILER_EMAILID,
-            pass: process.env.NODEMAILER_PASS,
+            user: config.nodemailer.nodeMailerEmailId,
+            pass: config.nodemailer.nodeMailerPass,
           },
         });
 
         //  Set up email data
         let mailOptions = {
-          from: `"KoKu Support" <${process.env.NODEMAILER_EMAILID}>`,
+          from: `"KoKu Support" <${config.nodemailer.nodeMailerEmailId}>`,
           to: user.email,
           subject: 'KoKu Password Reset OTP',
           text: `Your OTP is ${otp}. It will expire in 5 minutes.`,
@@ -117,7 +116,7 @@ async findUser(req, res, next) {
 
         const token = jwt.sign(
           { email: user.email, userId: user._id, userName: user.username },
-          process.env.JWT_OTP_SECRETKEY,
+          config.jwt.otpSecretKey,
           { expiresIn: '15m' }
         );
         res.cookie('jwtOtp', token, {
@@ -147,7 +146,7 @@ async findUser(req, res, next) {
       if (verify) {
         const token = jwt.sign(
           { email: email, userId: userId, userName: userName },
-          process.env.JWT_NEW_PASS_SECRETKEY,
+          config.jwt.newPassSecretKey,
           { expiresIn: '15m' }
         );
 
@@ -193,7 +192,7 @@ async findUser(req, res, next) {
             userId: result._id,
             userName: result.username,
           },
-          process.env.JWT_SECRETKEY,
+          config.jwt.secretKey,
           { expiresIn: '1h' }
         );
 

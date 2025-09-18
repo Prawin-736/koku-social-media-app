@@ -1,15 +1,11 @@
 import express from 'express';
-import path from 'path';
 import multer from 'multer';
-import { dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
 import { jwtAuth } from '../../middleware/jwt.js';
 import PostController from './post-controller.js';
 
 const postController = new PostController();
 
-// setting this to get absoulte path .
-const __dirname = dirname(fileURLToPath(import.meta.url));
+
 
 export const postRouter = express.Router();
 

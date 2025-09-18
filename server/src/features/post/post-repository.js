@@ -7,6 +7,7 @@ import { DeleteObjectCommand } from '@aws-sdk/client-s3';
 import { generateSignedUrl } from '../../../aws/s3SignedUrl.js';
 import path from 'node:path';
 import { s3Client } from '../../../aws/s3Client.js';
+import { config } from '../../../config.js';
 
 export default class PostRepository {
   //-----------------add post 
@@ -22,7 +23,7 @@ export default class PostRepository {
     const key = `kokuApp/post/${userId}${timeStampKey}${fileExtension}`;
 
     const command = new PutObjectCommand({
-      Bucket: process.env.AWS_BUCKET_NAME,
+      Bucket: config.aws.bucketName,
       Key: key,
       Body: file.buffer,
       ContentType: file.mimetype,
@@ -47,7 +48,7 @@ export default class PostRepository {
     // ------------adds the post to database
     try {
       await s3Client.send(command);
-      const fileUrl = `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${key}`;
+      const fileUrl = `https://${config.aws.bucketName}.s3.${config.aws.region}.amazonaws.com/${key}`;
       const newPost = new PostModel({
         caption: caption,
         post: fileUrl,
@@ -198,7 +199,7 @@ export default class PostRepository {
       }
 
       const params = {
-        Bucket: process.env.AWS_BUCKET_NAME,
+        Bucket: config.aws.bucketName,
         Key: s3Key,
       };
 

@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import { CommentModel } from './commentSchema.js';
 
 export default class commentRepository {
-  //postComment (CHECKED)
+  //postComment
   async postComment(postId, userId, commentData, commentTime) {
     try {
       const comment = new CommentModel({
@@ -20,7 +20,7 @@ export default class commentRepository {
     }
   }
 
-  //fetch comment (CHECKED)
+  //fetch comment 
   async fetchComment(postId) {
     try {
       const comments = await CommentModel.find({ post: postId }).populate(
@@ -33,7 +33,7 @@ export default class commentRepository {
     }
   }
 
-  //delete comment (CHECKED)
+  //delete comment 
   async deleteComment(commentId) {
     try {
       const comment = await CommentModel.findByIdAndDelete(commentId);
@@ -44,7 +44,7 @@ export default class commentRepository {
     }
   }
 
-  //find comment (CHECKED)
+  //find comment 
   async findComment(commentId) {
     try {
       const comment = await CommentModel.findById(commentId);
@@ -55,7 +55,7 @@ export default class commentRepository {
     }
   }
 
-  // add like to comment (CHECKED)
+  // add like to comment 
   async addLikeToComment(commentId, userId) {
     try {
       const comment = await CommentModel.findByIdAndUpdate(
@@ -71,7 +71,7 @@ export default class commentRepository {
     }
   }
 
-  //remove like to comment (CHECKED)
+  //remove like to comment
   async removeLikeToComment(commentId, userId) {
     try {
       const comment = await CommentModel.findByIdAndUpdate(

@@ -1,9 +1,9 @@
 import ErrorHandler from '../../middleware/error-handler.js';
 import commentRepository from './comment-repository.js';
-import dotenv from 'dotenv';
+
 import { generateSignedUrl } from '../../../aws/s3SignedUrl.js';
 import { PostModel } from '../post/postSchema.js';
-dotenv.config();
+
 
 export default class CommentController {
   constructor() {

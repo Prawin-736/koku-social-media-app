@@ -1,5 +1,4 @@
-import dotenv from 'dotenv';
-dotenv.config();
+import { config } from '../../../config.js';
 import ErrorHandler from '../../middleware/error-handler.js';
 import { UserModel } from './userSchema.js';
 import bcrypt from 'bcrypt';
@@ -12,14 +11,14 @@ export default class UserRepository {
   async checkUserExsist(email) {
     try {
       const user = await UserModel.findOne({ email });
-      if (user) {
-        throw new ErrorHandler('User already exists! 🚫');
+      if (!user) {
+        throw new ErrorHandler('User does not exist! ❌');
       } else {
         return user;
       }
     } catch (err) {
       console.log('checkUserExsist repository Error: ', err);
-      throw new ErrorHandler('User already exists! 🚫', 404);
+       throw new ErrorHandler('Something went wrong', 500);
     }
   }
 
@@ -199,7 +198,7 @@ export default class UserRepository {
     const key = `kokuApp/profile-pictures/${userId}${fileExtension}`;
 
     const command = new PutObjectCommand({
-      Bucket: process.env.AWS_BUCKET_NAME,
+      Bucket: config.aws.bucketName,
       Key: key,
       Body: file.buffer,
       ContentType: file.mimetype,
@@ -207,7 +206,7 @@ export default class UserRepository {
 
     try {
       await s3Client.send(command);
-      const fileUrl = `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${key}`;
+      const fileUrl = `https://${config.aws.bucketName}.s3.${config.aws.region}.amazonaws.com/${key}`;
 
       await UserModel.findByIdAndUpdate(
         userId,
@@ -232,7 +231,7 @@ export default class UserRepository {
 
       if (user.profilepicture) {
         const params = {
-          Bucket: process.env.AWS_BUCKET_NAME,
+          Bucket: config.aws.bucketName,
           Key: user.profilepicture,
         };
 

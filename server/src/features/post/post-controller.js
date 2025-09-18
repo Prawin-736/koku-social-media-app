@@ -1,6 +1,4 @@
-import dotenv from 'dotenv';
-dotenv.config();
-import ErrorHandler from '../../middleware/error-handler.js';
+
 import PostRepository from './post-repository.js';
 import UserRepository from '../user/user-repository.js';
 
