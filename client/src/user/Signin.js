@@ -1,16 +1,27 @@
 
+//checks url to confirm in developer or production mode.
+const hostname = window.location.hostname;
+let API_URL;
+
+if (hostname === "localhost") {
+  API_URL = "http://localhost:3000";
+} else {
+  API_URL = "http://13.233.208.203:3000";
+}
+
+
 // redirect to signup page
  const signUpPage = document.querySelector('#redirect-signup');
 signUpPage.addEventListener("click",(event)=>{
     event.preventDefault();
-    window.location.href ="http://localhost:3000/api/user/signUp";
+    window.location.href =`${API_URL}/api/user/signUp`;
 });
 
 // redirect to forgot password page
 const forgotPassordPage = document.querySelector('#redirect-forgot-password');
 forgotPassordPage.addEventListener('click',(event)=>{
     event.preventDefault();
-    window.location.href ="http://localhost:3000/api/user/forgotPassword";
+    window.location.href = `${API_URL}/api/user/forgotPassword`;
 });
 
 

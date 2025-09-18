@@ -1,10 +1,20 @@
 
+//checks url to confirm in developer or production mode.
+const hostname = window.location.hostname;
+let API_URL;
+
+if (hostname === "localhost") {
+  API_URL = "http://localhost:3000";
+} else {
+  API_URL = "http://13.233.208.203:3000";
+}
+
 // redirect to signIn page
 const backToLoginButton = document.querySelector("#back-to-login");
 
 backToLoginButton.addEventListener("click",(event)=>{
 event.preventDefault();
-window.location.href = "http://localhost:3000/api/user/signIn";
+window.location.href = `${API_URL}/api/user/signIn`;
 });
 
 

@@ -1,7 +1,6 @@
 
 
 
-
 const form = document.querySelector("#new-password__form");
 const successBox = document.querySelector("#new-password__success-message");
 const errorBox = document.querySelector("#new-password__error-message");
