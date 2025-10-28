@@ -14,6 +14,7 @@ export const dp_background_setter = (name, container) => {//import to know
         case /^[A-Ea-e]$/.test(name.charAt(0)):
             if(container){
                 container.style.background = "linear-gradient(135deg, #fddb92, #d1fdff)";
+                container.style.color = "black";
             }
             document.querySelectorAll('#navbar-user-dp, #posting-dp').forEach(function(el) {
                 el.style.background = "linear-gradient(135deg, #fddb92, #d1fdff)";
@@ -23,6 +24,7 @@ export const dp_background_setter = (name, container) => {//import to know
         case /^[F-Jf-j]$/.test(name.charAt(0)):
             if(container){
                 container.style.background = "linear-gradient(135deg, #a2c0cc, #fceea7)";
+                container.style.color = "black";
             }
             document.querySelectorAll('#navbar-user-dp, #posting-dp').forEach(function(el) {
                 el.style.background = "linear-gradient(135deg, #a2c0cc, #fceea7)";
@@ -41,6 +43,7 @@ export const dp_background_setter = (name, container) => {//import to know
         case /^[P-Tp-t]$/.test(name.charAt(0)):
             if(container){
                 container.style.background = "linear-gradient(135deg, #fddb92, #d1fdff)";
+                container.style.color = "black";
             }
             document.querySelectorAll('#navbar-user-dp, #posting-dp').forEach(function(el) {
                 el.style.background = "linear-gradient(135deg, #fddb92, #d1fdff)";
@@ -50,6 +53,7 @@ export const dp_background_setter = (name, container) => {//import to know
         case /^[U-Zu-z]$/.test(name.charAt(0)):
             if(container){
                 container.style.background = "linear-gradient(135deg, #d1fbd0, #fbd1b7)";
+                container.style.color = "black";
             }
             document.querySelectorAll('#navbar-user-dp, #posting-dp').forEach(function(el) {
                 el.style.background = "linear-gradient(135deg, #d1fbd0, #fbd1b7)";
@@ -59,6 +63,7 @@ export const dp_background_setter = (name, container) => {//import to know
         default:
             if(container){
                 container.style.background = "#ffd3fd";
+                container.style.color = "black";
             }
             document.querySelectorAll('#navbar-user-dp, #posting-dp').forEach(function(el) {
                 el.style.background = "#ffd3fd";

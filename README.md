@@ -1,11 +1,38 @@
 
-# Koku – 🌐 Fullstack Social Media App
+# Koku – Social Media App
 
-A full-stack social media application built with Node.js, Express.js, MongoDB Atlas, and Mongoose on the backend, and HTML, CSS, JavaScript, and Bootstrap on the frontend.
+Koku is a full-stack social media application built with Node.js, Express.js, MongoDB Atlas, and Mongoose on the backend, and HTML, CSS, and a minimal amount of Bootstrap with vanilla JavaScript on the frontend. Real-time messaging is powered by Socket.IO.
 
-The application is deployed on AWS EC2, with media storage handled via AWS S3.
+## 🚀 Demo  
 
-This app allows users to connect and interact through posts, likes, comments, and friend management, while integrating modern features like cloud storage, authentication, and real-world deployment.
+### 🔗 Live Demo  
+You can try Koku – Social Media App live here:  
+👉 <a href="https://prawin.dev/project/koku-socialmedia-app" target="_blank" rel="noopener noreferrer">
+https://prawin.dev/project/koku-socialmedia-app</a>
+
+
+### 🖼️ Screenshots / Preview
+
+  <!-- Smaller mobile views below -->
+<table>
+  <tr>
+    <td style="padding:4px;"><img src="./client/src/assets/screenshots/1.jpg" width="100%"></td>
+    <td style="padding:4px;"><img src="./client/src/assets/screenshots/3.jpg" width="100%"></td>
+    <td style="padding:4px;"><img src="./client/src/assets/screenshots/5.jpg" width="100%"></td>
+  </tr>
+</table>
+<table>
+  <tr>
+    <td style="padding:4px;"><img src="./client/src/assets/screenshots/9.jpg" width="100%"></td>
+    <td style="padding:4px;"><img src="./client/src/assets/screenshots/7.jpg" width="100%"></td>
+    <td style="padding:4px;"><img src="./client/src/assets/screenshots/8.jpg" width="100%"></td>
+  </tr>
+</table>
+ <!-- Full-width desktop view -->
+  <p>
+    <img src="./client/src/assets/screenshots/10.jpg" width="100%" style="margin:10px 0;" />
+  </p>
+</div>
 
 
 ## 🚀 Features

@@ -41,6 +41,10 @@
     filter: brightness(0) invert(1) ;
 }
 
+[data-bs-theme="dark"] .user-icon{
+    filter: brightness(0) invert(1) ;
+}
+
 [data-bs-theme="dark"] .dropdown-item:hover {
   background-color: #343a40 !important;
 }
@@ -65,7 +69,7 @@
 .navbar-user__dp{
     width: 2.4rem;
     height: 2.4rem;
-    background-color:aqua ;
+    /* background-color:aqua ; */
     border-radius: 50%;
     box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075) ;
     margin-left: .5rem;
@@ -113,6 +117,53 @@
     }
   
 }
+
+/* checking */
+@media screen and (max-width: 450px) {
+ .navbar-logo__brand{
+ display:none !important; 
+}
+
+.navbar-user__dp{
+ display:none !important; 
+}
+
+ .user-icon{
+  width: .8rem !important;
+ }
+
+ .primary-user-detail h5{
+  font-size: medium;
+ }
+
+  .primary-user-detail small{
+  font-size: small;
+ }
+
+ .posting{
+  padding-left: 0px;
+ }
+
+  /* .user-specific-detail {
+    width: 100%;
+    margin-top: 0.5rem; 
+  } */
+
+    .inside-middle {
+        width: 80% !important;
+     }
+    
+    .inside-left, .inside-right {
+        width: 10% !important;
+    }
+    
+    .inside-middle {
+        max-width: 100% !important;
+    }
+
+
+}
+
 
 /* --------------navbar user area------------------ */
 
@@ -236,7 +287,6 @@
 .posting__dp{
     width: 2.6rem;
     height: 2.6rem;
-    background-color:aqua ;
     border-radius: 50%;
     box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075) ;
     margin-left: .5rem;
@@ -284,7 +334,7 @@ background-color: #495057 !important;
    .text-container {
       width: 100%;
       overflow: hidden;
-      font-size: medium;
+      font-size: 14px;
       line-height: 1.2;
       max-height: 2.4rem; 
       overflow: hidden;
@@ -318,8 +368,18 @@ background-color: #495057 !important;
 .like-button:hover{
 background-color: #f8f9fa !important;
 }
+
+[data-bs-theme="dark"] .like-button:hover{
+  background-color: transparent !important;
+
+}
+
 .comment-button:hover{
 background-color: #f8f9fa !important;
+}
+
+[data-bs-theme="dark"] .comment-button:hover{
+  background-color: transparent !important;
 }
 
 .count-circle{
@@ -356,12 +416,13 @@ background-color: #f8f9fa !important;
 .comment__dp{
     width: 1.6rem;
     height: 1.6rem;
-    background-color:aqua ;
+    background-color: #212529;
     border-radius: 50%;
     box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075) ;
     margin-left: .5rem;
     margin-right: .5rem;
 }
+
 
 .comment__dp img{
     width: 100%;
@@ -374,7 +435,35 @@ background-color: #f8f9fa !important;
 }
 
 .comment-like-active{
-  filter: brightness(0) saturate(100%) invert(26%) sepia(97%) saturate(3366%) hue-rotate(338deg) brightness(97%) contrast(92%);
+  filter: brightness(0) saturate(100%) invert(26%) sepia(97%) saturate(3366%) hue-rotate(338deg) brightness(97%) contrast(92%) !important;
+}
+
+/* darktheme */
+[data-bs-theme="dark"] .each-comment{
+background-color: #121212 !important;
+}
+
+[data-bs-theme="dark"] .comment__dp{
+background-color: #121212 !important;
+
+}
+[data-bs-theme="dark"] .commentSec-svg {
+   filter: brightness(0) invert(1) !important; 
+}
+
+[data-bs-theme="dark"] .show-more-comment-toggleButton{
+  background-color: transparent !important;
+  color: white;
+   border: none;
+}
+
+[data-bs-theme="dark"] .comment-like-active{
+  filter: brightness(0) saturate(100%) invert(26%) sepia(97%) saturate(3366%) hue-rotate(338deg) brightness(97%) contrast(92%) !important;
+}
+
+[data-bs-theme="dark"] .show-more-comment-toggleButton:hover{
+font-weight: bold;
+color: white;
 }
 /* ------------------------post----------------------- */
 
@@ -426,7 +515,7 @@ background-color: #f8f9fa !important;
 .userAccount__dp{
     width: 2.6rem;
     height: 2.6rem;
-    background-color:aqua ;
+    /* background-color:aqua ; */
     border-radius: 50%;
     box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075) ;
     margin-left: .5rem;
@@ -444,7 +533,7 @@ background-color: #f8f9fa !important;
 }
 
 .userDetailEdit:hover{
-  filter: invert(22%) sepia(48%) saturate(5580%) hue-rotate(219deg) brightness(111%) contrast(98%);
+  filter: invert(22%) sepia(48%) saturate(5580%) hue-rotate(219deg) brightness(111%) contrast(98%) !important;
 }
 
 /* user profile update section */

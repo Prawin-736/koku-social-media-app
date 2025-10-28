@@ -11,10 +11,10 @@ export default class UserRepository {
   async checkUserExsist(email) {
     try {
       const user = await UserModel.findOne({ email });
-      if (!user) {
-        throw new ErrorHandler('User does not exist! ❌');
+      if (user) {
+        throw new ErrorHandler('❌ User already exists!');
       } else {
-        return user;
+       return;
       }
     } catch (err) {
       console.log('checkUserExsist repository Error: ', err);

@@ -23,7 +23,7 @@ homeOuterScroll();
 //----------------------!!!!!!!!!!!!!!! PageSection
 
 //---------homePage
-const homePageSection = ()=>{
+const homePageSection = ()=>{ 
   
   // adds postingContainer to the home page
   document.addEventListener("DOMContentLoaded",()=>{
@@ -31,8 +31,8 @@ const homePageSection = ()=>{
   const postingContainer =()=>{
   const postingHTML = `<div class="posting background-white  rounded-3 shadow-sm p-4 mb-2 d-flex  align-items-center justify-content-center" style="height: auto; width: 100%;">
           <div class="subcontainer-posting d-flex " style="width: 100%;">
-          <div class="posting__dp" id="posting-dp"></div>
-          <a class="posting-action background-white rounded-4 d-flex align-items-center font-color-black " data-bs-toggle="modal" data-bs-target="#post-modal" >Start a post</a>
+          <div class="posting__dp background-white" id="posting-dp"></div>
+          <a class="posting-action background-white rounded-4 d-flex align-items-center font-color-black collapse-count " data-bs-toggle="modal" data-bs-target="#post-modal" style=" border: 1px solid #000;" >Start a post</a>
           </div>  
         </div>`;
 
@@ -96,24 +96,27 @@ const formatteddobObj = dobObj.toLocaleDateString('en-US', {
   day: 'numeric',
 });
 
-const allDetailHTML = ` <div class="posting bg-white rounded-3 shadow-sm p-4 mb-2 d-flex align-items-center justify-content-center" style="height: 5rem; width: 100%;">
-  <div class="subcontainer-posting d-flex py-0 w-100 align-items-center justify-content-between">
-    <div class="d-flex align-items-center" id="userDetail-container">
-      <div class="userAccount__dp me-3">
-      </div>
-      <div class="d-flex flex-column me-3">
-        <h5 class="mb-0 pb-0">${result.username}</h5>
-        <small>${result.email}</small>
-      </div>
-      <div class="d-flex flex-column">
-        <small><img src="../assets/icon/calendar.svg" alt="calendar" style="width: 1rem;">&nbsp;&nbsp;${formatteddobObj}</small>
-        <small><img src="../assets/icon/person.svg" alt="" style="width: 1.4rem;" >&nbsp;&nbsp;Gender: ${result.gender}</small>
-      </div>
+const allDetailHTML = `<div class="posting background-white rounded-3 shadow-sm px-4 py-2 mb-2 d-flex flex-column align-items-start justify-content-center" style="width: 100%; height:auto">
+  <div class="d-flex justify-content-center w-100 my-1" id="userDetail-container">
+    <div class="userAccount__dp me-3 background-white">
+      <!-- Profile picture -->
+    </div> 
+    <div class="d-flex flex-column me-3 primary-user-detail">
+      <h5 class="mb-0 pb-0">${result.username}</h5>
+      <small>${result.email}</small>
     </div>
-              <button class="btn ms-auto userDetailEdit" type="button" style="cursor: pointer;" ><img src="../assets/icon/pencil-square.svg" alt=""  style="width: .9rem;">&nbsp;Edit</button>
-
+    <button class="btn userDetailEdit ms-auto" type="button" style="cursor: pointer;">
+    <img src="../assets/icon/pencil-square.svg" alt="" class="user-icon" style="width: 1rem;">&nbsp;Edit
+  </button>
   </div>
-</div>`;
+<div class="d-flex align-content-between">
+  <div class="d-flex  user-icon user-specific-detail w-100 mb-2">
+    <small class="mx-3"><img src="../assets/icon/calendar.svg" alt="calendar" style="width: .9rem;" class="user-icon">&nbsp;&nbsp;${formatteddobObj}</small>
+    <small class="me-3"><img src="../assets/icon/person.svg" alt=""style="width: 1.2rem;">&nbsp;&nbsp;Gender: ${result.gender}</small>
+  </div>  
+</div>
+</div>
+`
 
     const userDetailContainer = document.createElement("div");
     userDetailContainer.innerHTML= allDetailHTML;
@@ -254,7 +257,7 @@ document.addEventListener("DOMContentLoaded", () => {
             gender:genderInput
         };
 
-        const response = await fetch("/api/user/userDetail",{
+        let response = await fetch("/api/user/userDetail",{
           method:"POST",
           credentials:"include",
           headers:{
@@ -267,7 +270,7 @@ document.addEventListener("DOMContentLoaded", () => {
 if (!response.ok) {
     const result = await response.json();
     if (result.errors && Array.isArray(result.errors) && result.errors.length > 0) {
-        const firstError = result.errors[0].message || "Unknown error occurred";
+        let firstError = result.errors[0].message || "Unknown error occurred";
         console.log("First error:", firstError);
 
         const errorBox = modalElement.querySelector(".error-container-edit-user-modal");
@@ -333,50 +336,51 @@ if(response.ok){
 
   //Adds friendPage structure
 const friendPageStructure = `
-     <div class=" bg-white rounded-3 shadow-sm mb-2" style="width: 100%; height:3rem; padding: 0.5rem;">
+<div class="background-white rounded-3 shadow-sm mb-2" style="width: 100%; height:auto; padding: 0.5rem;">
     <div class="d-flex align-items-center justify-content-center w-100"
-         style=" border-radius: 0.5rem; ">
-      <img src="../assets/icon/friends.svg" alt="friends" style="height: 1.6rem;" class="active-friends-icon me-2">    
-      <h5 class="mb-0 me-2" style="font-size: 1rem;">Friends</h5>
-      <div class=" d-flex justify-content-center align-items-center" 
-           style="width: 22px; height: 22px; border: 1px solid #000; border-radius: 50%; font-size: medium;">
-           ${result.currentUser.friend.friendList.length}
-      </div>  
-    </div>
-  </div>
-
-      <div class="d-flex" style="height: 100%;">
-      <div class="inside-left" style="width: 20%; height: 100%; " ></div>
-      <div class="inside-middle" style="width: 60%; height: 100%;">
-
-<div>
-      <div class="bg-white rounded-3 shadow-sm p-4 my-2  d-flex align-items-center justify-content-center" style="height: 2.6rem; max-height:auto; width: 100%; ">
-          <img src="../assets/icon/friendRequest.svg" alt="Members" style="width:1.5rem" class="active-friends-icon me-4">
-    <h6 class=" pt-1 ms-2"><b>Friend Request</b></h6>
-     <div class=" d-flex justify-content-center align-items-center ms-2" 
-           style="width: 22px; height: 22px; border: 1px solid #000; border-radius: 50%; font-size: medium;">
-           ${result.currentUser.friend.requestReceived.length}
-      </div>
-
-    <div class=" ms-auto userTypeButton">
-    <button class="btn friendRequestListButton" type="button" data-bs-toggle="collapse" data-bs-target="#friendListCollapse" aria-expanded="false" aria-controls="friendListCollapse" >
-    <img src="../assets/icon/caret-down.svg" alt="Members" style="width:0.8rem">
-    </button>
-    </div>
-    </div>
-
-    <div class="collapse" id="friendListCollapse" >
- <div class="friendRequestList mb-2 d-flex flex-column"style="height:auto;">
-
+         style="border-radius: 0.5rem;">
+        <img src="../assets/icon/friends.svg" alt="friends" style="height: 1.6rem;" class="active-friends-icon me-2">    
+        <h5 class="mb-0 me-2" style="font-size: 1rem;">Friends</h5>
+        <div class="d-flex justify-content-center align-items-center collapse-count" 
+             style="width: 22px; height: 22px; border: 1px solid #000; border-radius: 50%; font-size: medium;">
+             ${result.currentUser.friend.friendList.length}
+        </div>  
     </div>
 </div>
+
+<div class="d-flex justify-content-center" style="height: 100%; width: 100%">
+    <div class="inside-left" style="width: 20%; height: 100%;"></div>
     
-</div>
-    </div>
+    <div class="inside-middle d-flex flex-column  align-items-center" style="width:60%; height: 100%;">
 
-      <div class="inside-right" style="width: 20%; height: 100%;"></div>
-      
-      </div>`;
+        <!-- CHANGE 3: Added mx-auto to center the friend request container within the middle column -->
+        <div class="background-white rounded-3 shadow-sm p-4 my-2 d-flex align-items-center justify-content-center mx-auto" style="height: 2.6rem; width: 100%; max-width: 400px;"> <!-- CHANGE 4: Added max-width for better control -->
+            <img src="../assets/icon/friendRequest.svg" alt="Members" style="width:1.5rem" class="active-friends-icon me-4">
+            <h6 class="pt-1 ms-2"><b>Friend Request</b></h6>
+            <div class="d-flex justify-content-center align-items-center ms-2 collapse-count" 
+                 style="width: 22px; height: 22px; border: 1px solid #000; border-radius: 50%; font-size: medium;">
+                 ${result.currentUser.friend.requestReceived.length}
+            </div>
+
+            <div class="ms-auto userTypeButton">
+                <button class="btn friendRequestListButton commentSec-svg" type="button" data-bs-toggle="collapse" data-bs-target="#friendListCollapse" aria-expanded="false" aria-controls="friendListCollapse">
+                    <img src="../assets/icon/caret-down.svg" alt="Members" style="width:0.8rem">
+                </button>
+            </div>
+        </div>
+
+        <!-- CHANGE 5: Added mx-auto to center the collapse container -->
+        <div class="collapse mx-auto" id="friendListCollapse" style="width: 100%; max-width: 400px;"> <!-- CHANGE 6: Added max-width to match the container above -->
+            <div class="friendRequestList mb-2 d-flex flex-column" style="height:auto;">
+                <!-- Friend request items will go here -->
+            </div>
+        </div>
+        
+    </div>
+    
+    <div class="inside-right" style="width: 20%; height: 100%;"></div>
+</div>
+`;
       const container = document.createElement("div");
       container.innerHTML=friendPageStructure;
       document.querySelector(".main-side").append(container);
@@ -389,7 +393,7 @@ const friendPageStructure = `
       //if no friends send poster message no friend
 if (friendList.size === 0){
         
-        const noFriendHTML = ` <div class="post bg-white rounded-3 shadow-sm p-2 mb-2 d-flex flex-column " style=" width: 100%;height: auto;" >
+        const noFriendHTML = ` <div class="post background-white rounded-3 shadow-sm p-2 mb-2 d-flex flex-column " style=" width: 100%;height: auto;" >
       <div class="dashed-box" style=" border: 2px dashed #ccc;
     border-radius: 0.5rem;
     padding: 2rem">
@@ -413,14 +417,13 @@ if (friendList.size === 0){
       friends.forEach((friend)=>{
 
          const friendStructure = `
-
-    <div class=" userStructure bg-white rounded-3 shadow-sm p-4 mb-2 d-flex align-items-center justify-content-center" style="height: 3.6rem; width: 100%;">
+    <div class=" userStructure background-white rounded-3 shadow-sm p-4 mb-2 d-flex align-items-center justify-content-center" style="height: 3.6rem; width: 18rem;">
     <div class="userAccount__dp mx-1">
     
     </div>
     <h6 class=" pt-1 ms-2">${friend.username}</h6>
     <div class=" ms-auto userTypeButton">
-    <button class="btn btn-secondary p-0 userButton unFriendButton " data-otherUserId=${friend._id}><small class="px-1">Unfriend</small></button>
+    <button class="btn btn-secondary p-0 userButton unFriendButton mx-2 " data-otherUserId=${friend._id}><small class="px-1">Unfriend</small></button>
     </div>
     </div>`;
 
@@ -443,6 +446,8 @@ dpContainer.appendChild(img);
   dpContainer.style.justifyContent= "center";
   dpContainer.style.alignItems = "center";
   dpContainer.style.fontWeight = "bold";
+  dpContainer.style.color = "black";
+
 
   dp_background_setter(friend.username,dpContainer);
     }
@@ -480,7 +485,7 @@ if(response.ok){
 
          const friendStructure = `
 
-    <div class=" userStructure bg-white rounded-3 shadow-sm p-4 mb-2 d-flex align-items-center justify-content-center border border-secondary" style="height: 3.6rem; width: 100%;">
+    <div class=" userStructure background-white rounded-3 shadow-sm p-4 mb-2 d-flex align-items-center justify-content-center border border-secondary" style="height: 3.6rem; width: 100%;">
     <div class="userAccount__dp mx-1">
     
     </div>
@@ -510,6 +515,7 @@ dpContainer.appendChild(img);
   dpContainer.style.justifyContent= "center";
   dpContainer.style.alignItems = "center";
   dpContainer.style.fontWeight = "bold";
+   dpContainer.style.color = "black";
 
   dp_background_setter(friend.username,dpContainer);
     }
@@ -539,12 +545,12 @@ const response = await fetch("/api/user/getAllUsers",{
 const result = await response.json();
 
 const membersPageStructure = `
-      <div class=" bg-white rounded-3 shadow-sm mb-2" style="width: 100%; height:3rem; padding: 0.5rem;">
+      <div class=" background-white rounded-3 shadow-sm mb-2" style="width: 100%; height:3rem; padding: 0.5rem;">
     <div class="d-flex align-items-center justify-content-center w-100"
          style=" border-radius: 0.5rem; ">    
       <img src="../assets/icon/members.svg" alt="Members" style="width: 1.6rem;" class="active-friends-icon me-2">
       <h5 class="mb-0 me-2" style="font-size: 1rem;">Members</h5>
-      <div class=" d-flex justify-content-center align-items-center" 
+      <div class=" d-flex justify-content-center align-items-center collapse-count" 
            style="width: 22px; height: 22px; border: 1px solid #000; border-radius: 50%; font-size: medium;">
         ${result.users.length -1}
       </div>  
@@ -570,7 +576,7 @@ result.users.forEach((user)=>{
 
   const userStructure = `
 
-    <div class=" userStructure bg-white rounded-3 shadow-sm p-4 mb-2 d-flex align-items-center justify-content-center" style="height: 3.6rem; width: 100%;">
+    <div class=" userStructure background-white rounded-3 shadow-sm p-4 mb-2 d-flex align-items-center justify-content-center" style="height: 3.6rem; width: 100%;">
     <div class="userAccount__dp mx-1">
     
     </div>
@@ -598,7 +604,9 @@ dpContainer.appendChild(img);
   dpContainer.style.display = "flex";
   dpContainer.style.justifyContent= "center";
   dpContainer.style.alignItems = "center";
-  dpContainer.style.fontWeight = "bold";
+  dpContainer.style.fontWeight = "bold"; 
+  dpContainer.style.color = "black";
+
 
   dp_background_setter(user.username,dpContainer);
     }
@@ -671,7 +679,7 @@ const loadAllPostSection = (user, posts)=>{
        allPostsHTML += `<div class="post background-white rounded-3 shadow-sm p-2 mb-2 d-flex flex-column " style=" width: 100%;height: auto;" >
   <div class="post-top background-white d-flex align-items-center no-border" style="height: 3.8rem;">
     <div class="left d-flex mx-1">
-<div class="posting__dp"><img src="" alt="Profile Picture"></div>
+<div class="posting__dp background-white"><img src="" alt="Profile Picture"></div>
     <div class="post-user">
       <h6 class="pt-1 ps-2 mb-0 font-color-black">${element.postObj.user.username}</h6>
       <small class="ps-2 font-color-black">${element.postObj.posttime}</small>
@@ -690,7 +698,7 @@ const loadAllPostSection = (user, posts)=>{
    <div class="showmore-container">
 
     </div>
-  <div class="post-image-container bg-info-subtle d-inline-block">
+  <div class="post-image-container background-white d-inline-block">
     <img src="${element.postObj.post}"  alt="postImage" class="post-image">
   </div>
   <hr class="my-2 border border-dark">
@@ -706,10 +714,10 @@ const loadAllPostSection = (user, posts)=>{
  <div class="post-comment d-flex align-items-center mx-3">
     <button class="comment-button btn btn-white px-2 py-0 ">
     <div class="post-comment-icon mx-1 d-flex align-items-center">
-      <img src="../assets/icon/post-comment.svg" style="width: 1.2rem;" class="mx-1 py-0" alt="comment">
+      <img src="../assets/icon/post-comment.svg" style="width: 1.2rem;" class="mx-1 py-0 commentSec-svg " alt="comment">
         <p class="position-relative" style="top: 6px; " class="my-0 font-color-black">Comment</p>
         <div class="count-circle comment-length-count collapse-count" >${element.postObj.comment.length}</div>
-              <img src="../assets/icon/caret-down.svg" style="width: .8rem;" class="mx-1 py-0" alt="comment">
+              <img src="../assets/icon/caret-down.svg" style="width: .8rem;" class="mx-1 py-0 commentSec-svg" alt="comment">
     </div>
     </button>    
     </div> 
@@ -748,7 +756,7 @@ const requestSent = document.createElement('div');
 requestSent.innerHTML= requestSentStructure;
 friendContainer.append(requestSent);
 }else if(user.friend.requestReceived.some((user)=>user === element.postObj.user._id)){
-const requestReceivedStructure = `<button class="btn btn-outline-success p-0" disabled><small class="px-1">Request received</small></button>`;
+const requestReceivedStructure = `<button class="btn btn-outline-success p-0" disabled><small class="px-1">Requested</small></button>`;
 const requestReceived = document.createElement('div');
 requestReceived.innerHTML= requestReceivedStructure;
 friendContainer.append(requestReceived);
@@ -920,9 +928,11 @@ const postLike =(postHTML,element)=>{
 //checking if user already liked the post or not if already liked used fill heart or if not add outline heart
     if(element.postObj.likes.some(like => like._id === element.userId)){
     postLikeIcon.src="../assets/icon/heart-fill.svg";
+      postLikeIcon.classList.add('comment-like-active');
     postLikeIcon.classList.add("post-like-active");    
   } else {
      postLikeIcon.src="../assets/icon/heart.svg";
+         postLikeIcon.classList.add('commentSec-svg');
     postLikeIcon.classList.remove('post-like-active');
   }
   }
@@ -1545,9 +1555,13 @@ document.addEventListener("click", async function(event) {
 
       if (postLikeIcon.classList.contains("post-like-active")) {
       postLikeIcon.src = "../assets/icon/heart.svg";
-        postLikeIcon.classList.remove("post-like-active");
+      postLikeIcon.classList.add('commentSec-svg');
+      postLikeIcon.classList.remove("post-like-active");
+      postLikeIcon.classList.remove("comment-like-active");
+
       } else {
          postLikeIcon.src = "../assets/icon/heart-fill.svg";
+         postLikeIcon.classList.add('comment-like-active');
         postLikeIcon.classList.add("post-like-active");
       }
 
@@ -1746,7 +1760,8 @@ if(response.ok){
 
   if (commentLikeIcon.classList.contains('comment-like-active')) {
     commentLikeIcon.setAttribute('src', '../assets/icon/heart.svg');
-     commentLikeIcon.classList.remove('comment-like-active')
+     commentLikeIcon.classList.remove('comment-like-active');
+     
   } else {
     commentLikeIcon.setAttribute('src', '../assets/icon/heart-fill.svg');
     commentLikeIcon.classList.add('comment-like-active');
@@ -1764,7 +1779,7 @@ const fetchCommentStructure=(comment,result,commentContainer,postId)=>{
 let commentStructure = "";
 commentStructure += `<div class="each-comment p-0 mx-2 mb-2 mx-2 rounded-3" style="background-color:#e9ecef">
         <div class="top-comment-section d-flex">
-          <div class="comment__dp d-flex align-self-center">
+          <div class="comment__dp  d-flex align-self-center">
             <img class="comment-profile-picture" alt="" style="width: 100%; height:auto; max-height:100%; object-fit:cover">
           </div>
           <div class="user-time d-flex flex-column p-0">
@@ -1801,10 +1816,12 @@ commentStructure += `<div class="each-comment p-0 mx-2 mb-2 mx-2 rounded-3" styl
   else{
   commentLikeIcon.classList.remove('comment-like-active');
   commentLikeIcon.setAttribute('src', '../assets/icon/heart.svg');
+  commentLikeIcon.classList.add('commentSec-svg');
+
   }
 
   const commentDropDown = `<button class="btn comment-delete " type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        <img src="../assets/icon/three-dots-horizontal.svg" style="width: 1rem;" alt="horizontal-options">
+        <img src="../assets/icon/three-dots-horizontal.svg" style="width: 1rem;" class="commentSec-svg" alt="horizontal-options">
       </button>
       <ul class="dropdown-menu " style="width: auto; min-width:7rem; height:auto; height: auto; max-height:3rem;">
         <li><button class="dropdown-item comment-delete-action" type="button">Delete</button></li>
@@ -1834,7 +1851,7 @@ commentStructure += `<div class="each-comment p-0 mx-2 mb-2 mx-2 rounded-3" styl
 
   // -------------------------------------add showmore button function for comment contaier
   const addShowmoreToComment=(commentContainer)=>{
-  const showMoreHTML = `<button type="submit" class="btn btn-light show-more show-more-comment-toggleButton p-0 mx-2"><img src="../assets/icon/caret-down.svg" alt="dropdown"><small> More comments...</small></button>`;
+  const showMoreHTML = `<button type="submit" class="btn btn-light show-more show-more-comment-toggleButton p-0 mx-2"><img src="../assets/icon/caret-down.svg" class="commentSec-svg" alt="dropdown"><small> More comments...</small></button>`;
   const showMore = document.createElement('div');
   showMore.innerHTML = showMoreHTML;
   commentContainer.append(showMore);
