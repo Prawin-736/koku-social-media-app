@@ -199,29 +199,27 @@ npm start
 
 ```
 Koku App-project
-├── client               # Frontend application
+├── client                      # Frontend application
 │   └── src
-│       ├── assets       # Static assets like icons
+│       ├── assets              # Static assets like icons
 │       │   └── icon
-│       ├── main         # Main page HTML, CSS, JS
+│       ├── main                # Main page HTML, CSS, JS
 │       │   ├── *.dev.html      # Development HTML files
 │       │   └── *.prod.html     # Production HTML files
-│       └── user         # User section HTML, CSS, JS
+│       └── user                # User section HTML, CSS, JS
 │           ├── *.dev.html      # Development HTML files
 │           └── *.prod.html     # Production HTML files
-└── server               # Backend of the application
-    ├── aws              # AWS-related utilities
+└── server                      # Backend of the application
+    ├── aws                     # AWS-related utilities
     ├── src
-    │   ├── features     # Core business logic
-    │   │   ├── comment  # Comment handling - includes controller, repository, router, and schema
-    │   │   ├── main     # Main routes
-    │   │   ├── post     # Post handling - includes controller, repository, router, and schema
-    │   │   └── user     # User management - includes controller, repository, router, and schema
-    │   └── middleware   # user validation, check expired user, error handling
-    └── server.js        # Root server file
+    │   ├── features            # Core business logic
+    │   │   ├── comment         # Comment handling - includes controller, repository, router, and schema
+    │   │   ├── main            # Main routes
+    │   │   ├── post            # Post handling - includes controller, repository, router, and schema
+    │   │   └── user            # User management - includes controller, repository, router, and schema
+    │   └── middleware          # user validation, check expired user, error handling
+    └── server.js               # Root server file
 ```
-
-
 
 ## 🧩 Frontend HTML Files
 
@@ -237,7 +235,6 @@ Koku App-project
 - **Backend:** Running on Node.js with PM2
 - **Frontend:** Served with Nginx
 - **Live Demo:** [https://prawin.dev/project/koku-socialmedia-app](https://prawin.dev/project/koku-socialmedia-app)
-
 
 ## License
 
