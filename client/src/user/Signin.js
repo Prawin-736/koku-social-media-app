@@ -1,101 +1,100 @@
-
 //checks url to confirm in developer or production mode.
 const hostname = window.location.hostname;
 let API_URL;
 
-if (hostname === "localhost") {
-  API_URL = "http://localhost:3000";
+if (hostname === 'localhost') {
+  API_URL = 'http://localhost:3000';
 } else {
-  API_URL = "http://13.233.208.203:3000";
+  API_URL = 'https://prawin.dev/project/koku-socialmedia-app';
 }
 
-
 // redirect to signup page
- const signUpPage = document.querySelector('#redirect-signup');
-signUpPage.addEventListener("click",(event)=>{
-    event.preventDefault();
-    window.location.href =`${API_URL}/api/user/signUp`;
+const signUpPage = document.querySelector('#redirect-signup');
+signUpPage.addEventListener('click', (event) => {
+  event.preventDefault();
+  window.location.href = `${API_URL}/api/user/signUp`;
 });
 
 // redirect to forgot password page
 const forgotPassordPage = document.querySelector('#redirect-forgot-password');
-forgotPassordPage.addEventListener('click',(event)=>{
-    event.preventDefault();
-    window.location.href = `${API_URL}/api/user/forgotPassword`;
+forgotPassordPage.addEventListener('click', (event) => {
+  event.preventDefault();
+  window.location.href = `${API_URL}/api/user/forgotPassword`;
 });
 
+// Login logic
+document.addEventListener('DOMContentLoaded', () => {
+  const loginForm = document.querySelector('#login__form');
+  const loginEmail = document.querySelector('#form-input');
+  const loginPassword = document.querySelector('#form-password');
+  const successBox = document.querySelector('#success-box');
+  const errorBox = document.querySelector('#error-box');
 
-// Login logic 
-document.addEventListener("DOMContentLoaded",()=>{
+  loginForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
 
-    const loginForm = document.querySelector('#login__form');
-    const loginEmail = document.querySelector('#form-input');
-    const loginPassword = document.querySelector('#form-password');
-    const successBox = document.querySelector('#success-box');
-    const errorBox = document.querySelector('#error-box');
+    errorBox.innerHTML = '';
+    errorBox.style.display = 'none';
 
-    loginForm.addEventListener("submit",async(event)=>{
+    successBox.innerHTML = '';
+    successBox.style.display = 'none';
 
-        event.preventDefault();
+    const email = loginEmail.value.trim();
+    const password = loginPassword.value.trim();
+    const data = {
+      email: email,
+      password: password,
+    };
 
-        errorBox.innerHTML = "";
-        errorBox.style.display= "none";
+    try {
+      const response = await fetch(`${API_URL}/api/user/signIn`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+        credentials: 'include',
+      });
+      const result = await response.json();
 
-        successBox.innerHTML="";
-        successBox.style.display="none";
-
-     const email = loginEmail.value.trim();
-     const password = loginPassword.value.trim();
-        const data = {
-            email:email,
-            password:password
+      // error message
+      if (!response.ok) {
+        if (
+          result.errors &&
+          Array.isArray(result.errors) &&
+          result.errors.length > 0
+        ) {
+          let firstError = `<small class="bg-danger-subtle px-4 py-2 rounded-2">${result.errors[0].message}</small>`;
+          errorBox.innerHTML = firstError;
+          errorBox.classList.remove('d-none');
+          errorBox.style.display = 'block';
         }
+      }
+      // success message
+      if (response.ok) {
+        let successBoxStructure = `<small class="bg-success-subtle px-4 py-2 rounded-2">${result.message}</small>`;
+        successBox.innerHTML = successBoxStructure;
+        successBox.classList.remove('d-none');
+        successBox.style.display = 'block';
 
-        try{
-            const response = await fetch("/api/user/signIn",{
-            method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(data),
-                 credentials: "include"
-            });
-            const result = await response.json();
-
-            // error message
-            if (!response.ok) {
-                if (result.errors && Array.isArray(result.errors) && result.errors.length > 0) {
-            let firstError = `<small class="bg-danger-subtle px-4 py-2 rounded-2">${result.errors[0].message}</small>`;
-                    errorBox.innerHTML=firstError;
-                    errorBox.classList.remove("d-none");
-                    errorBox.style.display="block";                }
-            } 
-            // success message
-            if(response.ok) {
-                let successBoxStructure = `<small class="bg-success-subtle px-4 py-2 rounded-2">${result.message}</small>`;
-                successBox.innerHTML=successBoxStructure;
-                successBox.classList.remove("d-none");
-                successBox.style.display="block";
-  
-            setTimeout(() => {
-                // consider loginForm is a <form> element
-              loginForm.reset(); 
-              errorBox.innerHTML = "";
-              errorBox.style.display = "none";
-              successBox.innerHTML = "";
-              successBox.style.display = "none";
-              window.location.href = "/api/main";
-              }, 500);
-              }
-              }catch (error) {
-              const errorMessage = error.message;
-             if(errorMessage){
-            let errorBoxStructure = `<small class="bg-danger-subtle px-4 py-2 rounded-2">${errorMessage}</small>`;
-             errorBox.innerHTML=errorBoxStructure;
-            errorBox.classList.remove("d-none");
-            errorBox.style.display="block";
-        }
-        }
-
-    }); 
+        setTimeout(() => {
+          // consider loginForm is a <form> element
+          loginForm.reset();
+          errorBox.innerHTML = '';
+          errorBox.style.display = 'none';
+          successBox.innerHTML = '';
+          successBox.style.display = 'none';
+          window.location.href = `${API_URL}/api/main`;
+        }, 500);
+      }
+    } catch (error) {
+      const errorMessage = error.message;
+      if (errorMessage) {
+        let errorBoxStructure = `<small class="bg-danger-subtle px-4 py-2 rounded-2">${errorMessage}</small>`;
+        errorBox.innerHTML = errorBoxStructure;
+        errorBox.classList.remove('d-none');
+        errorBox.style.display = 'block';
+      }
+    }
+  });
 });

@@ -5,7 +5,7 @@ import { config } from '../config.js';
 
 export const generateSignedUrl = async (key, expiresIn = 3600) => {
   const command = new GetObjectCommand({
-    Bucket:config.aws.bucketName,
+    Bucket: config.aws.bucketName,
     Key: key,
     expiresIn: 3600,
   });

@@ -1,15 +1,14 @@
-
 # Koku – Social Media App
 
 Koku is a full-stack social media application that allows users to share posts, connect with friends, like and comment on content, and manage their profiles — all within a clean, responsive interface. Built using Node.js, Express.js, MongoDB Atlas, and AWS S3, featuring a vanilla JavaScript frontend enhanced with minimal Bootstrap styling for a responsive experience.
 
-## 🚀 Demo  
+## 🚀 Demo
 
-### 🔗 Live Demo  
+### 🔗 Live Demo
+
 You can try Koku – Social Media App live here:  
 👉 <a href="https://prawin.dev/project/koku-socialmedia-app" target="_blank" rel="noopener noreferrer">
 https://prawin.dev/project/koku-socialmedia-app</a>
-
 
 ### 🖼️ Screenshots / Preview
 
@@ -34,57 +33,57 @@ https://prawin.dev/project/koku-socialmedia-app</a>
   </p>
 </div>
 
-
 ## 🚀 Features
 
 - 🔐 **Authentication & Session Management**
-  - Custom **Signup**, **Login**, and **Logout** functionality  
-  - Supports **multiple simultaneous logins** across devices  
-  - **Forgot Password** with **OTP verification** via email  
+  - Custom **Signup**, **Login**, and **Logout** functionality
+  - Supports **multiple simultaneous logins** across devices
+  - **Forgot Password** with **OTP verification** via email
   - 🔐 **Logout Options**
-   - Logout from the **current device only**  
-   - Logout from **all active sessions** across devices with a single click  
+  - Logout from the **current device only**
+  - Logout from **all active sessions** across devices with a single click
 
 - 🖼️ **Post Management**
-  - Upload **images with captions** (stored securely on **AWS S3**)  
-  - ✏️ **Edit** or **Delete** your own posts  
+  - Upload **images with captions** (stored securely on **AWS S3**)
+  - ✏️ **Edit** or **Delete** your own posts
 
 - 💬 **Like & Comment System**
-  - **Like** and **Comment** on posts  
+  - **Like** and **Comment** on posts
 
 - 🗑️ **Comment Management**
-  - **Delete** your own comments  
+  - **Delete** your own comments
 
 - 🧑‍🤝‍🧑 **Friend System**
-  - **Send**, **Accept**, **Reject**, or **Cancel** friend requests  
-  - **Unfriend** existing friends  
+  - **Send**, **Accept**, **Reject**, or **Cancel** friend requests
+  - **Unfriend** existing friends
 
 - 🧑 **User Profiles**
-  - View and update user details (**username**, **email**, **age**)  
-  - Upload a **profile picture** (stored on **AWS S3**)  
-  - If no picture is uploaded, display **user initials** with a **gradient background**  
+  - View and update user details (**username**, **email**, **age**)
+  - Upload a **profile picture** (stored on **AWS S3**)
+  - If no picture is uploaded, display **user initials** with a **gradient background**
 
 - 🌙 **Dark/Light Mode Toggle**
-  - Seamlessly switch between **Dark** and **Light** themes  
+  - Seamlessly switch between **Dark** and **Light** themes
 
 - 💾 **MongoDB Atlas**
-  - Cloud-hosted **NoSQL database** for storing user, post, and comment data  
+  - Cloud-hosted **NoSQL database** for storing user, post, and comment data
 
 - ✉️ **Nodemailer Integration**
-  - Sends **OTP emails** securely for password recovery  
+  - Sends **OTP emails** securely for password recovery
 
 - ☁️ **AWS S3 Storage**
-  - Reliable and secure **cloud storage** for all uploaded images  
-
+  - Reliable and secure **cloud storage** for all uploaded images
 
 ## 🛠️ Tech Stack
 
 ### Frontend
+
 - HTML, CSS, JavaScript
 - Bootstrap (minimally used for responsive UI).
 - js-cookie (for handling cookies on client side)
 
 ### Backend
+
 - Node.js (JavaScript runtime)
 - Express.js (web framework)
 - bcrypt (password hashing)
@@ -96,24 +95,27 @@ https://prawin.dev/project/koku-socialmedia-app</a>
 - multer (file upload handling)
 
 ### Database
+
 - MongoDB Atlas (cloud-hosted NoSQL database)
 - Mongoose (MongoDB ODM for schema and querying)
 
 ### Cloud & Storage
+
 - AWS S3 SDK (`@aws-sdk/client-s3`, `@aws-sdk/s3-request-presigner`) for secure media upload/storage
 
 ### Email Service
+
 - Nodemailer (sending OTP and email notifications)
 
-
-## 🚀 Getting Started 
+## 🚀 Getting Started
 
 Follow these steps to run the project locally.
 
-### 📦 Prerequisites 
-- Node.js installed  
-- MongoDB installed (or access to MongoDB Atlas)  
-- AWS account with an S3 bucket created  
+### 📦 Prerequisites
+
+- Node.js installed
+- MongoDB installed (or access to MongoDB Atlas)
+- AWS account with an S3 bucket created
 - Git installed
 
 ### 🔧 Installation
@@ -145,28 +147,29 @@ npm install cross-env --save-dev
 Create environment-specific `.env` files inside the `server/` directory to separate development and production configurations.
 
 Create two files:
+
 - `.env.development` — for development mode
 - `.env.production` — for production mode
 
 Each file should contain the following variables with values specific to your environment:
 
 ```env
-# MongoDB 
+# MongoDB
 DB_URL=mongodb+srv://<username>:<password>@cluster.mongodb.net/<your_db_name>
 DB_NAME=<your_database_name>
 
-# JWT 
+# JWT
 JWT_SECRETKEY=<your_jwt_secret_key>
 JWT_OTP_SECRETKEY=<your_jwt_otp_secret_key>
 JWT_NEW_PASS_SECRETKEY=<your_jwt_new_pass_secret_key>
 
-# AWS 
+# AWS
 AWS_BUCKET_NAME=<your_aws_bucket_name>
 AWS_REGION=ap-south-1
 AWS_ACCESS_KEY=<your_aws_access_key>
 AWS_SECRET_ACCESS_KEY=<your_aws_secret_access_key>
 
-# Nodemailer 
+# Nodemailer
 NODEMAILER_EMAILID=<youremail@example.com>
 NODEMAILER_PASS=<your_nodemailer_password>
 ```
@@ -185,17 +188,18 @@ Open `server/package.json` and add the following to the `scripts` section:
 **6. Start the backend server**
 
 Development mode:
+
 ```bash
 npm run dev
 ```
 
 Production mode:
+
 ```bash
 npm start
 ```
 
-
-## 📂 Project Structure 
+## 📂 Project Structure
 
 ```
 Koku App-project
@@ -224,8 +228,8 @@ Koku App-project
 ## 🧩 Frontend HTML Files
 
 - Each page has separate files for development and production:
-  - *.dev.html → For **local development**
-  - *.prod.html → For **production deployment**
+  - \*.dev.html → For **local development**
+  - \*.prod.html → For **production deployment**
 
 - Update `<base href="">` and API endpoints in production files before deploying.
 
@@ -246,6 +250,3 @@ This project is licensed under the MIT License. See the [LICENSE](./LICENSE) fil
 
 - GitHub: [@Prawin-736](https://github.com/Prawin-736)
 - LinkedIn: [Prawin Kumar S](https://www.linkedin.com/in/prawin-kumar-s/)
-
-
-

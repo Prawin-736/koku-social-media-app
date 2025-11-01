@@ -5,44 +5,42 @@ import PostController from './post-controller.js';
 
 const postController = new PostController();
 
-
-
 export const postRouter = express.Router();
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-//post 
+//post
 postRouter.post('/', jwtAuth, upload.single('postImage'), (req, res, next) => {
   postController.uploadPost(req, res, next);
 });
 
-//fetch all posts 
+//fetch all posts
 postRouter.get('/', jwtAuth, (req, res, next) => {
   postController.fetchAllPost(req, res, next);
 });
 
-//fetch all user specfic posts 
+//fetch all user specfic posts
 postRouter.get('/user', jwtAuth, (req, res, next) => {
   postController.fetchAllUserPost(req, res, next);
 });
 
-//preview caption 
+//preview caption
 postRouter.post('/fetchCaption', jwtAuth, (req, res, next) => {
   postController.fetchCaption(req, res, next);
 });
 
-//edit post 
+//edit post
 postRouter.post('/editPost', jwtAuth, (req, res, next) => {
   postController.editPost(req, res, next);
 });
 
-//delete post 
+//delete post
 postRouter.post('/deletePost', jwtAuth, (req, res, next) => {
   postController.deletePost(req, res, next);
 });
 
-//like post 
+//like post
 postRouter.post('/likePost', jwtAuth, (req, res, next) => {
   postController.likePost(req, res, next);
 });

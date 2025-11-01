@@ -10,31 +10,28 @@ export default class UserController {
     this.userRepository = new UserRepository();
   }
 
+  async findUser(req, res, next) {
+    const userId = req.userId;
+    try {
+      const result = await this.userRepository.getUser(userId);
 
+      // return username and displayMode
+      //fallbacks to light mode when diplaymode is undefined.
+      const response = {
+        username: result.username,
+        displayMode: result.displayMode || 'light',
+      };
 
-async findUser(req, res, next) {
-  const userId = req.userId;
-  try {
-    const result = await this.userRepository.getUser(userId);
+      if (result.profilepicture) {
+        response.profilepicture = result.profilepicture;
+      }
 
-    // return username and displayMode
-    //fallbacks to light mode when diplaymode is undefined.
-    const response = {
-      username: result.username,
-      displayMode: result.displayMode || 'light'  
-    };
-
-    if (result.profilepicture) {
-      response.profilepicture = result.profilepicture;
+      return res.status(200).send(response);
+    } catch (err) {
+      console.log('findUser controller Error : ', err);
+      next(err);
     }
-
-    return res.status(200).send(response); 
-  } catch (err) {
-    console.log('findUser controller Error : ', err);
-    next(err);
   }
-}
-
 
   //signUp
   async signUp(req, res, next) {
@@ -62,7 +59,7 @@ async findUser(req, res, next) {
   async generateOtpSend(req, res, next) {
     const { email } = req.body;
     try {
-      const user = await this.userRepository.checkUserExsist(email);
+      const user = await this.userRepository.OtpcheckUserExsist(email);
       if (!user) {
         throw new ErrorHandler(
           'No account found with this email. Please try again or create a new account. 🔍'
@@ -121,7 +118,7 @@ async findUser(req, res, next) {
         );
         res.cookie('jwtOtp', token, {
           httpOnly: true,
-          secure: false, // only over HTTPS in production (process.env.NODE_ENV === "production")//important to know
+          secure: process.env.NODE_ENV === 'production', // only over HTTPS in production (process.env.NODE_ENV === "production")//important to know
           sameSite: 'strict',
           maxAge: 5 * 60 * 1000, // 5 minutes
         });
@@ -152,7 +149,7 @@ async findUser(req, res, next) {
 
         res.cookie('jwtNewPass', token, {
           httpOnly: true,
-          secure: false, // only over HTTPS in production (process.env.NODE_ENV === "production")//important to know
+          secure: process.env.NODE_ENV === 'production', // only over HTTPS in production (process.env.NODE_ENV === "production")//important to know
           sameSite: 'strict',
           maxAge: 15 * 60 * 1000, // 15 minutes
         });
@@ -180,7 +177,7 @@ async findUser(req, res, next) {
     }
   }
 
-  //signIn 
+  //signIn
   async signIn(req, res, next) {
     const { email, password } = req.body;
     try {
@@ -207,7 +204,7 @@ async findUser(req, res, next) {
         if (addToken) {
           res.cookie('jwt', token, {
             httpOnly: true,
-            secure: false, // only over HTTPS in production
+            secure: process.env.NODE_ENV === 'production', // only over HTTPS in production
             sameSite: 'strict',
             maxAge: 60 * 60 * 1000, // 1hour
           });
@@ -243,14 +240,13 @@ async findUser(req, res, next) {
             '✅ Password changed successfully! 🚀Taking you to the login page...',
         });
       }
-
     } catch (err) {
       console.log('newPassword controller Error : ', err);
       next(err);
     }
   }
 
-  // upload profile picture 
+  // upload profile picture
   async uploadProfilePicture(req, res, next) {
     try {
       const file = req.file;
@@ -267,7 +263,7 @@ async findUser(req, res, next) {
     }
   }
 
-  // removeProfilePicture 
+  // removeProfilePicture
   async removeProfilePicture(req, res, next) {
     try {
       const userId = req.userId;
@@ -279,7 +275,7 @@ async findUser(req, res, next) {
     }
   }
 
-  //logout user 
+  //logout user
   async logOutUser(req, res, next) {
     try {
       const userId = req.userId;
@@ -299,7 +295,7 @@ async findUser(req, res, next) {
     }
   }
 
-  //logOutAll 
+  //logOutAll
   async logOutAll(req, res, next) {
     try {
       const userId = req.userId;
@@ -378,7 +374,7 @@ async findUser(req, res, next) {
       next(err);
     }
   }
-  //get friends count and members count 
+  //get friends count and members count
   async gerFriendsAndMembersCount(req, res, next) {
     const userId = req.userId;
     try {
@@ -394,7 +390,7 @@ async findUser(req, res, next) {
   }
   //-------------friend section
 
-  //addFriend 
+  //addFriend
   async addFriend(req, res, next) {
     try {
       const userId = req.userId;
@@ -407,7 +403,7 @@ async findUser(req, res, next) {
     }
   }
 
-  //unfriend 
+  //unfriend
   async unfriend(req, res, next) {
     try {
       const userId = req.userId;
@@ -420,7 +416,7 @@ async findUser(req, res, next) {
     }
   }
 
-  //send friend Request 
+  //send friend Request
   async sendFriendRequest(req, res, next) {
     try {
       const userId = req.userId;
@@ -437,7 +433,7 @@ async findUser(req, res, next) {
     }
   }
 
-  //cancel friend Request 
+  //cancel friend Request
   async cancelFriendRequest(req, res, next) {
     try {
       const userId = req.userId;

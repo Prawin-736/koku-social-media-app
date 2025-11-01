@@ -4,13 +4,12 @@ import commentRepository from './comment-repository.js';
 import { generateSignedUrl } from '../../../aws/s3SignedUrl.js';
 import { PostModel } from '../post/postSchema.js';
 
-
 export default class CommentController {
   constructor() {
     this.commentRepository = new commentRepository();
   }
 
-  //post comment 
+  //post comment
   async postComment(req, res, next) {
     const postId = req.body.postId;
     const userId = req.userId;
@@ -103,7 +102,7 @@ export default class CommentController {
     }
   }
 
-  //delete comment 
+  //delete comment
   async deleteComment(req, res, next) {
     const commentId = req.query.commentId;
     try {
@@ -126,7 +125,7 @@ export default class CommentController {
     }
   }
 
-  //like comment 
+  //like comment
   async likeComment(req, res, next) {
     const userId = req.userId;
     const commentId = req.body.commentId;

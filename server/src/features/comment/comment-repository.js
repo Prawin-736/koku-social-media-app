@@ -20,7 +20,7 @@ export default class commentRepository {
     }
   }
 
-  //fetch comment 
+  //fetch comment
   async fetchComment(postId) {
     try {
       const comments = await CommentModel.find({ post: postId }).populate(
@@ -33,7 +33,7 @@ export default class commentRepository {
     }
   }
 
-  //delete comment 
+  //delete comment
   async deleteComment(commentId) {
     try {
       const comment = await CommentModel.findByIdAndDelete(commentId);
@@ -44,7 +44,7 @@ export default class commentRepository {
     }
   }
 
-  //find comment 
+  //find comment
   async findComment(commentId) {
     try {
       const comment = await CommentModel.findById(commentId);
@@ -55,7 +55,7 @@ export default class commentRepository {
     }
   }
 
-  // add like to comment 
+  // add like to comment
   async addLikeToComment(commentId, userId) {
     try {
       const comment = await CommentModel.findByIdAndUpdate(

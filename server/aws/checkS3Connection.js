@@ -5,7 +5,7 @@ import { config } from '../config.js';
 export const checkS3Connection = async () => {
   try {
     const commond = new ListBucketsCommand({
-         Bucket: config.aws.bucketName,
+      Bucket: config.aws.bucketName,
     });
     const response = await s3Client.send(commond);
     console.log('S3 connection successful :', response.Buckets);

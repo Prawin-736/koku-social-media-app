@@ -9,9 +9,18 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export const mainRouter = express.Router();
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 mainRouter.get('/', jwtAuth, (req, res) => {
-  res.sendFile(path.join(__dirname, '../../../../client/src/main/main.html'));
+   const fileName = isProduction ? 'main.prod.html' : 'main.dev.html';
+
+  res.sendFile(path.join(__dirname, '../../../../client/src/main',fileName));
 });
+
+
 mainRouter.get('/user-name', jwtAuth, (req, res) => {
   res.json({ userName: req.userName, userId: req.userId });
 });
+
+
+

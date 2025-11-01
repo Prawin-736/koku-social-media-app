@@ -14,13 +14,23 @@ export default class UserRepository {
       if (user) {
         throw new ErrorHandler('❌ User already exists!');
       } else {
-       return;
+        return;
       }
     } catch (err) {
       console.log('checkUserExsist repository Error: ', err);
-       throw new ErrorHandler('Something went wrong', 500);
+      throw new ErrorHandler('Something went wrong', 500);
     }
   }
+
+  async  OtpcheckUserExsist(email) {
+  try {
+    const user = await UserModel.findOne({ email });
+    return user;
+  } catch (err) {
+    console.log('checkUserExsist repository Error: ', err);
+    throw new ErrorHandler('Something went wrong', 500);
+  }
+}
 
   //gets username and profile picture for the user..
   async getUser(userId) {
@@ -156,7 +166,7 @@ export default class UserRepository {
     }
   }
 
-  //removeAllToken for the user 
+  //removeAllToken for the user
   async removeAllToken(userId) {
     try {
       const result = await UserModel.updateOne(
@@ -188,7 +198,7 @@ export default class UserRepository {
     }
   }
 
-  // uploadProfilePicture 
+  // uploadProfilePicture
   async uploadProfilePicture(userId, file) {
     if (!file) {
       throw new ErrorHandler('No file uploaded', 400);
@@ -361,7 +371,7 @@ export default class UserRepository {
     }
   }
 
-  //updateUserDetail 
+  //updateUserDetail
   async updateUserDetail(userId, username, dob, gender) {
     try {
       const user = await UserModel.findByIdAndUpdate(
@@ -383,7 +393,7 @@ export default class UserRepository {
     }
   }
 
-  // getFriendsAndMemverscount 
+  // getFriendsAndMemverscount
   async gerFriendsAndMembersCount(userId) {
     try {
       const members = await UserModel.find();
@@ -431,7 +441,7 @@ export default class UserRepository {
     }
   }
 
-  //unFriend 
+  //unFriend
   async unfriend(userId, otherUserId) {
     try {
       const removeFriend = await UserModel.findByIdAndUpdate(

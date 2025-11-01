@@ -1,4 +1,3 @@
-
 import PostRepository from './post-repository.js';
 import UserRepository from '../user/user-repository.js';
 
@@ -8,7 +7,7 @@ export default class PostController {
     this.userRepository = new UserRepository();
   }
 
-  //----------------------uploadPost 
+  //----------------------uploadPost
   async uploadPost(req, res, next) {
     const userId = req.userId;
     const file = req.file;
@@ -24,7 +23,7 @@ export default class PostController {
     }
   }
 
-  //-------------------------fetchAllPost 
+  //-------------------------fetchAllPost
   async fetchAllPost(req, res, next) {
     try {
       const userId = req.userId;
@@ -41,7 +40,7 @@ export default class PostController {
     }
   }
 
-  //-------------------------fetchAllUserPost 
+  //-------------------------fetchAllUserPost
   async fetchAllUserPost(req, res, next) {
     try {
       const userId = req.userId;
@@ -57,7 +56,7 @@ export default class PostController {
     }
   }
 
-  //---------editCaption preview caption input 
+  //---------editCaption preview caption input
   async fetchCaption(req, res, next) {
     try {
       const postId = req.body.postId;
@@ -70,7 +69,7 @@ export default class PostController {
     }
   }
 
-  //------editPost 
+  //------editPost
   async editPost(req, res, next) {
     try {
       const postId = req.body.postId;
@@ -101,7 +100,7 @@ export default class PostController {
     }
   }
 
-  //---------------likePost 
+  //---------------likePost
   async likePost(req, res, next) {
     try {
       const postId = req.body.postId;

@@ -2,17 +2,25 @@ import { config } from '../../config.js';
 import jwt from 'jsonwebtoken';
 import UserRepository from '../features/user/user-repository.js';
 
+
+// Detects environment
+const isProduction = process.env.NODE_ENV === 'production';
+
+const API_URL = isProduction
+  ? 'https://prawin.dev/project/koku-socialmedia-app'
+  : 'http://localhost:3000';
+
 const userRepository = new UserRepository();
 
 export const jwtAuth = async (req, res, next) => {
   const token = req.cookies.jwt;
 
   if (!token) {
-    return res.redirect('/api/user/signIn');
+    return res.redirect(`${API_URL}/api/user/signIn`);
   }
 
   try {
-    const payload = jwt.verify(token,config.jwt.secretKey);
+    const payload = jwt.verify(token, config.jwt.secretKey);
     req.userId = payload.userId;
     req.email = payload.email;
     req.userName = payload.userName;
@@ -22,11 +30,11 @@ export const jwtAuth = async (req, res, next) => {
     if (userTokens && userTokens.some((t) => t.token === token)) {
       return next();
     } else {
-      return res.redirect('/api/user/signIn');
+      return res.redirect(`${API_URL}/api/user/signIn`);
     }
   } catch (err) {
     console.error('JWT verification failed:', err.message);
-    return res.redirect('/api/user/signIn');
+    return res.redirect(`${API_URL}/api/user/signIn`);
   }
 };
 
@@ -36,11 +44,11 @@ export const jwtOtpAuth = (req, res, next) => {
   const token = req.headers['authorization'];
 
   if (!token) {
-    return res.redirect('/api/user/forgotPassword');
+    return res.redirect(`${API_URL}/api/user/forgotPassword`);
   }
 
   try {
-    const payload = jwt.verify(token,config.jwt.otpSecretKey);
+    const payload = jwt.verify(token, config.jwt.otpSecretKey);
     req.userId = payload.userId;
     req.email = payload.email;
     req.userName = payload.userName;
@@ -48,7 +56,7 @@ export const jwtOtpAuth = (req, res, next) => {
     next();
   } catch (err) {
     console.log('JWT verification failed:', err.message);
-    return res.redirect('/api/user/forgotPassword');
+    return res.redirect(`${API_URL}/api/user/forgotPassword`);
   }
 };
 
@@ -58,10 +66,10 @@ export const jwtNewPassAuth = (req, res, next) => {
   const token = req.headers['authorization'];
 
   if (!token) {
-    return res.redirect('/api/user/newPassword');
+    return res.redirect(`${API_URL}/api/user/newPassword`);
   }
   try {
-    const payload = jwt.verify(token,config.jwt.newPassSecretKey);
+    const payload = jwt.verify(token, config.jwt.newPassSecretKey);
     req.userId = payload.userId;
     req.email = payload.email;
     req.userName = payload.userName;
@@ -69,6 +77,6 @@ export const jwtNewPassAuth = (req, res, next) => {
     next();
   } catch (err) {
     console.log('JWT verification failed:', err.message);
-    return res.redirect('/api/user/newPassword');
+    return res.redirect(`${API_URL}/api/user/newPassword`);
   }
 };

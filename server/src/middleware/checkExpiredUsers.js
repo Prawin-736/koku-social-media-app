@@ -16,13 +16,13 @@ const isTokenExpired = (token) => {
 
 export const checkAndLogoutExpiredUsers = async () => {
   try {
-    // Finding  all users that have at least one token
+    // finding  all users that have at least one token
     const users = await UserModel.find({ 'tokens.token': { $ne: null } });
 
     console.log('checkAndLogoutExpiredUsers is checking');
 
     for (const user of users) {
-      // Tracking the tokens that need to be removed
+      // tracking the tokens that need to be removed
       const expiredTokens = user.tokens
         .filter((tokenObj) => isTokenExpired(tokenObj.token)) //here it filter all the token which are expired.
         .map((tokenObj) => tokenObj.token); //creating an array and storing all the expired together.
@@ -30,7 +30,7 @@ export const checkAndLogoutExpiredUsers = async () => {
       if (expiredTokens.length > 0) {
         console.log(`Logging out expired user: ${user.username}`);
 
-        // Remove all expired tokens from user.tokens array using $pull with $in operator
+        // remove all expired tokens from user.tokens array
         await UserModel.updateOne(
           { _id: user._id },
           { $pull: { tokens: { token: { $in: expiredTokens } } } }
@@ -43,9 +43,9 @@ export const checkAndLogoutExpiredUsers = async () => {
 };
 
 export function startExpiredUserChecker() {
-  // Runs immediatly when server runs.
+  // runs immediatly when server runs.
   checkAndLogoutExpiredUsers();
 
-  // Then run every 5 minutes
+  //  run every 5 minutes after code is running
   setInterval(checkAndLogoutExpiredUsers, 5 * 60 * 1000);
 }

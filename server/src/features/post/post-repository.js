@@ -10,7 +10,7 @@ import { s3Client } from '../../../aws/s3Client.js';
 import { config } from '../../../config.js';
 
 export default class PostRepository {
-  //-----------------add post 
+  //-----------------add post
   async addPost(userId, file, caption) {
     if (!file) {
       throw new ErrorHandler('No file uploaded', 400);
@@ -64,7 +64,7 @@ export default class PostRepository {
     }
   }
 
-  //--------------------------gets All Post 
+  //--------------------------gets All Post
   async getAllPost(userId) {
     try {
       const posts = await PostModel.find()
@@ -156,7 +156,7 @@ export default class PostRepository {
     }
   }
 
-  //-------------------------find post for caption preview 
+  //-------------------------find post for caption preview
   async findPost(postId) {
     try {
       const post = await PostModel.findById(postId);
@@ -167,7 +167,7 @@ export default class PostRepository {
     }
   }
 
-  //--------------------------update caption 
+  //--------------------------update caption
   async updateCaption(postId, captionInput) {
     try {
       const post = await PostModel.findByIdAndUpdate(
@@ -182,7 +182,7 @@ export default class PostRepository {
     }
   }
 
-  //-------------------delete post 
+  //-------------------delete post
   async deletePost(postId) {
     try {
       const post = await PostModel.findById(postId);
@@ -219,7 +219,7 @@ export default class PostRepository {
     }
   }
 
-  //--------------------like post 
+  //--------------------like post
   async likePost(postId, userId) {
     try {
       const post = await PostModel.findById(postId).populate('likes');

@@ -18,9 +18,13 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 //-----------userLoginPage
+  const isProduction = process.env.NODE_ENV === 'production';
+
 
 userRouter.get('/signIn', (req, res) => {
-  res.sendFile(path.join(__dirname, '../../../../client/src/user/Signin.html'));
+     const fileName = isProduction ? 'Signin.prod.html' : 'Signin.dev.html';
+
+  res.sendFile(path.join(__dirname, '../../../../client/src/user',fileName));
 });
 
 userRouter.post(
@@ -36,7 +40,9 @@ userRouter.post(
 //-----------userSignUpPage
 
 userRouter.get('/signUp', (req, res) => {
-  res.sendFile(path.join(__dirname, '../../../../client/src/user/Signup.html'));
+     const fileName = isProduction ? 'Signup.prod.html' : 'Signup.dev.html';
+
+  res.sendFile(path.join(__dirname, '../../../../client/src/user',fileName));
 });
 
 userRouter.post(
@@ -50,10 +56,11 @@ userRouter.post(
 //-----------userSignUpPage-------------------------//
 
 //----------------forgotPasswordPage
-
 userRouter.get('/forgotPassword', (req, res) => {
+     const fileName = isProduction ? 'Forgotpassword.prod.html' : 'Forgotpassword.dev.html';
+
   res.sendFile(
-    path.join(__dirname, '../../../../client/src/user/Forgotpassword.html')
+    path.join(__dirname, '../../../../client/src/user',fileName)
   );
 });
 userRouter.post(
@@ -69,9 +76,10 @@ userRouter.post(
 //------------------otpVerificationPage
 
 userRouter.get('/otpverification', jwtOtpAuth, (req, res) => {
+     const fileName = isProduction ? 'verification.prod.html' : 'verification.dev.html';
+
   res.sendFile(
-    path.join(__dirname, '../../../../client/src/user/verification.html')
-  );
+    path.join(__dirname, '../../../../client/src/user',fileName));
 });
 
 userRouter.post(
@@ -93,9 +101,10 @@ userRouter.post('/resendOtp', jwtOtpAuth, (req, res, next) => {
 //--------------------newPasswordPage
 
 userRouter.get('/newPassword', jwtNewPassAuth, (req, res) => {
+     const fileName = isProduction ? 'Newpassword.prod.html' : 'Newpassword.dev.html';
+
   res.sendFile(
-    path.join(__dirname, '../../../../client/src/user/Newpassword.html')
-  );
+    path.join(__dirname, '../../../../client/src/user',fileName));
 });
 
 userRouter.post(
@@ -178,7 +187,7 @@ userRouter.get('/userCount', jwtAuth, (req, res, next) => {
   userController.gerFriendsAndMembersCount(req, res, next);
 });
 
-//add friend 
+//add friend
 userRouter.post('/addFriend', jwtAuth, (req, res, next) => {
   userController.addFriend(req, res, next);
 });
@@ -188,7 +197,7 @@ userRouter.post('/unFriend', jwtAuth, (req, res, next) => {
   userController.unfriend(req, res, next);
 });
 
-//cancel friend request 
+//cancel friend request
 userRouter.post('/cancelFriendRequest', jwtAuth, (req, res, next) => {
   userController.cancelFriendRequest(req, res, next);
 });
@@ -198,17 +207,17 @@ userRouter.post('/confirmFriendRequest', jwtAuth, (req, res, next) => {
   userController.confirmFriendRequest(req, res, next);
 });
 
-//delete friend request 
+//delete friend request
 userRouter.post('/deleteFriendRequest', jwtAuth, (req, res, next) => {
   userController.deleteFriendRequest(req, res, next);
 });
 
-//get all the users. 
+//get all the users.
 userRouter.get('/getAllUsers', jwtAuth, (req, res, next) => {
   userController.getAllUsers(req, res, next);
 });
 
-//get all friends 
+//get all friends
 userRouter.get('/getAllFriends', jwtAuth, (req, res, next) => {
   userController.getAllFriends(req, res, next);
 });

@@ -1,13 +1,13 @@
-*{
-    margin: 0px;
-    padding: 0px;
-    box-sizing: border-box;
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
 }
 
 /* login */
-.login__links a{
-    text-decoration: none;
-    }
-.login__links a:hover{
-text-decoration: underline;
+.login__links a {
+  text-decoration: none;
+}
+.login__links a:hover {
+  text-decoration: underline;
 }
